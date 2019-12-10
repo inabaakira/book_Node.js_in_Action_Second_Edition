@@ -36,6 +36,9 @@ channel.on('error', err => {
   console.log(`ERROR: ${err.message}`);
 });
 
+// 50 まで接続しても warning が出ないようにする。（デフォルトでは 10 で警告が出る）
+channel.setMaxListeners(50);
+
 const server = net.createServer(client => {
   const id = `${client.remoteAddress}:${client.remotePort}`;
   channel.emit('join', id, client);
