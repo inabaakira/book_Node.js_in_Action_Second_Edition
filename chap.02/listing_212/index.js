@@ -27,6 +27,10 @@ channel.on('shutdown', () => {
   channel.removeAllListeners('broadcast');
 });
 
+channel.on('error', err => {
+  console.log(`ERROR: ${err.message}`);
+});
+
 const server = net.createServer(client => {
   const id = `${client.remoteAddress}:${client.remotePort}`;
   channel.emit('join', id, client);
